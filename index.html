@@ -43,6 +43,14 @@
         <tbody></tbody>
     </table>
 
-    <script src="app.js"></script>
+    <script 
+    // Проверяем, выполнен ли вход
+        if (!localStorage.getItem('isLoggedIn')) {
+            // Если не выполнен, перенаправляем на страницу авторизации
+            window.location.href = 'login.html';
+        }
+    src="app.js">
+
+    </script>
 </body>
 </html>
