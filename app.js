@@ -1,12 +1,9 @@
-// app.js
-
 document.addEventListener('DOMContentLoaded', () => {
     const table = document.getElementById('data-table');
     const tbody = table.querySelector('tbody');
     const addRowButton = document.getElementById('add-row-button');
-    const confirmModal = document.createElement('div');
+    const confirmModal = document.querySelector('.confirm-modal');
     let rowToDelete;
-
 
     function createNewRow() {
         const newRow = document.createElement('tr');
@@ -27,20 +24,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
         tbody.appendChild(newRow);
         saveTableData(); // Сохраняем новые данные
-
     }
     
     addRowButton.addEventListener('click', () => {
         createNewRow();
     });
-    // Функция для сохранения данных таблицы в Local Storage
 
+    // Функция для сохранения данных таблицы в Local Storage
     function saveTableData() {
         const rows = Array.from(tbody.children);
         const data = rows.map(row => {
             return Array.from(row.cells)
-                .map(cell => cell.textContent.trim())
-                .filter((value, index) => index !== rows[0].cells.length - 1); // Исключаем последнюю ячейку с кнопками
+                .map((cell, index) => {
+                    if (index === row.cells.length - 1) return null; // Исключаем последнюю ячейку с кнопками
+                    return cell.textContent.trim();
+                })
+                .filter(value => value !== null);
         });
         
         localStorage.setItem('table-data', JSON.stringify(data));
@@ -73,15 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Создаем модальное окно подтверждения
-    confirmModal.className = 'confirm-modal';
-    confirmModal.innerHTML = `
-        <p class="confirm-message">Вы уверены, что хотите удалить эту строку?</p>
-        <button class="btn btn-confirm-yes">Да</button>
-        <button class="btn btn-confirm-no">Нет</button>
-    `;
-    document.body.appendChild(confirmModal);
-
     // Загружаем данные таблицы при загрузке страницы
     loadTableData();
 
@@ -105,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     tbody.addEventListener('click', e => {
         if (e.target && e.target.matches('.delete-btn')) {
             rowToDelete = e.target.closest('tr'); // Сохраняем строку для удаления
-            confirmModal.style.display = 'block'; // Показываем модальное окно
+            confirmModal.style.display = 'flex'; // Показываем модальное окно
         }
     });
 
@@ -122,8 +112,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Сохранение данных при изменении содержимого ячеек
     tbody.addEventListener('input', e => {
-        if (e.target && e.target.matches('td[contenteditable]')) {
+        if (e.target && e.target.matches('td[contenteditable="true"]')) {
             saveTableData(); // Сохраняем изменения при редактировании
         }
     });
+
+    // Обработка завершения редактирования
+    tbody.addEventListener('blur', e => {
+        if (e.target && e.target.matches('td[contenteditable="true"]')) {
+            e.target.removeAttribute('contenteditable');
+            saveTableData(); // Сохраняем данные после завершения редактирования
+        }
+    }, true);
 });
