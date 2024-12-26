@@ -8,13 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function createNewRow() {
         const newRow = document.createElement('tr');
 
-        // Создаем ячейку с чекбоксом
-        const checkBoxCell = document.createElement('td');
-        const checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkBoxCell.appendChild(checkbox);
-        newRow.appendChild(checkBoxCell);
-
         for (let i = 0; i < 24; i++) {
             const newCell = document.createElement('td');
             newCell.textContent = '';
@@ -32,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tbody.appendChild(newRow);
         saveTableData(); // Сохраняем новые данные
     }
-
+    
     addRowButton.addEventListener('click', () => {
         createNewRow();
     });
@@ -43,13 +36,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = rows.map(row => {
             return Array.from(row.cells)
                 .map((cell, index) => {
-                    if (index === 0) return cell.firstChild.checked ? '1' : '0'; // Индекс 0 для чекбокса
                     if (index === row.cells.length - 1) return null; // Исключаем последнюю ячейку с кнопками
                     return cell.textContent.trim();
                 })
                 .filter(value => value !== null);
         });
-
+        
         localStorage.setItem('table-data', JSON.stringify(data));
     }
 
@@ -60,17 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = JSON.parse(storedData);
             data.forEach(rowData => {
                 const row = document.createElement('tr');
-
+                
                 rowData.forEach(cellData => {
                     const cell = document.createElement('td');
-                    if (cellData === '1') {
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.checked = true;
-                        cell.appendChild(checkbox);
-                    } else {
-                        cell.textContent = cellData;
-                    }
+                    cell.textContent = cellData;
                     row.appendChild(cell);
                 });
 
@@ -95,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.target && e.target.matches('.edit-btn')) {
             const row = e.target.closest('tr');
             const cells = row.querySelectorAll('td');
-
+            
             for (let i = 0; i < cells.length - 1; i++) { // Пропускаем последнюю ячейку с кнопками
                 cells[i].setAttribute('contenteditable', true); // Включаем редактирование
             }

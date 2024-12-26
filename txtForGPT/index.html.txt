@@ -5,7 +5,6 @@
     <title>Редактируемая таблица</title>
     <link rel="stylesheet" href="styles.css">
     <style>
-        
         table {
             border-collapse: collapse;
             width: 100%;
@@ -51,7 +50,6 @@
         <thead>
             <tr>
                 <!-- Заголовки колонок -->
-                <th>Выгрузка</th>
                 <th>Колонка 1</th>
                 <th>Колонка 2</th>
                 <th>Колонка 3</th>

@@ -64,3 +64,44 @@ h1 {
     margin-top: 10px;
     margin-left: 10px;
 }
+/* Стили для модального окна */
+.confirm-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
+    z-index: 1000; /* Обеспечивает, чтобы модальное окно было выше других элементов */
+    border-radius: 5px; /* Закругленные углы */
+}
+
+/* Стиль для сообщения в модальном окне */
+.confirm-modal .confirm-message {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* Стиль для кнопок в модальном окне */
+.confirm-modal button {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Стили для лучшей видимости кнопок */
+.confirm-modal .btn-confirm-yes {
+    background-color: #4CAF50; /* Зеленый цвет для подтверждения */
+    color: white;
+}
+
+.confirm-modal .btn-confirm-no {
+    background-color: #f44336; /* Красный цвет для отказа */
+    color: white;
+    margin-left: 10px;
+}
