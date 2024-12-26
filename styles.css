@@ -64,6 +64,7 @@ h1 {
     margin-top: 10px;
     margin-left: 10px;
 }
+
 /* Стили для модального окна */
 .confirm-modal {
     position: fixed;
@@ -74,7 +75,14 @@ h1 {
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.25);
     z-index: 1000; /* Обеспечивает, чтобы модальное окно было выше других элементов */
-    border-radius: 5px; /* Закругленные углы */
+    border-radius: 25px; /* Закругленные углы */
+    max-width: 400px; /* Максимальная ширина окна */
+    width: 80%; /* Ширина окна */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 25vh; /* Ограничиваем максимальную высоту окна */
+    overflow-y: auto; /* Добавляем полосу прокрутки, если содержимое выходит за пределы */
 }
 
 /* Стиль для сообщения в модальном окне */

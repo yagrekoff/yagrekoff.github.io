@@ -139,4 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
             saveTableData(); // Сохраняем данные после завершения редактирования
         }
     }, true);
+
+    // Обработка ответа на подтверждение удаления
+    confirmModal.addEventListener('click', e => {
+    if (e.target && e.target.matches('.btn-confirm-yes')) {
+        rowToDelete.remove();
+        saveTableData(); // Сохраняем изменения после удаления
+        confirmModal.style.display = 'none';
+    } else if (e.target && e.target.matches('.btn-confirm-no')) {
+        confirmModal.style.display = 'none';
+    }
+});
 });
